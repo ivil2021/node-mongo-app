@@ -28,4 +28,13 @@ router.post("/create", async (req, res) => {
   res.redirect("/");
 });
 
+router.post("/complete", async (req, res) => {
+  const todo = Todo.findById(req.body.id);
+
+  todo.completed = !!req.body.completed;
+  await todo.slave();
+
+  res.redirect("/");
+});
+
 module.exports = router;
